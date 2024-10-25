@@ -1,11 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-
-// Helper function to create JWT token
-const createToken = (user) => {
-    return jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-};
+const createToken = require('../utils/tokenUtils')
 
 // Register a new user (Student or Admin)
 exports.registerUser = async (req, res) => {
@@ -13,8 +8,7 @@ exports.registerUser = async (req, res) => {
         const { name, email, password, role } = req.body;
         const user = new User({ name, email, password, role });
         await user.save();
-        const token = createToken(user);
-        res.status(201).json({ token, user: { name, email, role }, message: "user successfully registed" });
+        res.status(201).json({ user: { name, email, role }, message: "user successfully registed" });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -29,9 +23,8 @@ exports.loginUser = async (req, res) => {
 
         const match = await bcrypt.compare(password, user.password);
         if (!match) return res.status(400).json({ error: 'Invalid credentials' });
-
-        const token = createToken(user);
-        res.status(200).json({ token, user: { name: user.name, email: user.email, role: user.role },message: "user successfully login" });
+        const token = await createToken(user);
+        res.status(200).json({ token, user: { name: user.name, email: user.email, role: user.role, id: user._id }, message: "user successfully login" });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -48,14 +41,13 @@ exports.getProfile = async (req, res) => {
 };
 
 // Update student profile
-exports.updateStudentProfile = async (req, res) => {
+exports.updateProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user.userId);
-        if (user.role !== 'student') {
-            return res.status(403).json({ error: 'Only students can update their profile' });
+        if (!user) {
+            return res.status(403).json({ error: 'User not found' });
         }
-
-        Object.assign(user.profile.studentDetails, req.body);
+        Object.assign(user.profile, req.body);
         await user.save();
         res.json(user);
     } catch (err) {
@@ -69,7 +61,6 @@ exports.getAllStudents = async (req, res) => {
         if (req.user.role !== 'admin') {
             return res.status(403).json({ error: 'Only admins can view all students' });
         }
-
         const students = await User.find({ role: 'student' }).select('-password');
         res.json(students);
     } catch (err) {

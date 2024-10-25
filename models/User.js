@@ -7,14 +7,10 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ['student', 'admin'], default: 'student' },
   profile: {
-    studentDetails: {
-      enrolledCourses: [{ type: String }],
-      gradeLevel: { type: String },
-    },
-    adminDetails: {
-      managedStudents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
-    }
-  }
+    dob: { type: Date }, // Add date of birth
+    address: { type: String }, // Add address
+    gender: { type: String }, // Add gender
+  },
 });
 
 userSchema.pre('save', async function (next) {

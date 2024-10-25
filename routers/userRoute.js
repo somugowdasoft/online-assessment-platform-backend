@@ -1,5 +1,5 @@
 const express = require('express');
-const { registerUser, loginUser, getProfile, updateStudentProfile, getAllStudents, updateStudent } = require('../controllers/userController');
+const { registerUser, loginUser, getProfile, getAllStudents, updateStudent, updateProfile } = require('../controllers/userController');
 const authenticate = require('../middlewares/auth');
 
 const router = express.Router();
@@ -7,10 +7,9 @@ const router = express.Router();
 // Common routes
 router.post('/register', registerUser);
 router.post('/login', loginUser);
-router.get('/profile', authenticate(), getProfile);
-
-// Student routes
-router.put('/student/profile', authenticate('student'), updateStudentProfile);
+//profile
+router.get('/profile/:id', authenticate(), getProfile);
+router.put('/profile/:id', authenticate(), updateProfile);
 
 // Admin routes
 router.get('/admin/students', authenticate('admin'), getAllStudents);
