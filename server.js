@@ -1,5 +1,10 @@
 const express = require("express");
+
+//Routers
 const userRoutes = require('./routers/userRoute');
+const examRouter = require("./routers/examRoute")
+const studenRoutes = require('./routers/studentRoutes');
+
 const cors = require("cors");
 
 //import DB
@@ -20,6 +25,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api/auth', userRoutes)
+
+//exams
+app.use('/api/exam', examRouter)
+
+//students
+app.use('/api/students', studenRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
