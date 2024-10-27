@@ -13,7 +13,6 @@ const examSchema = new mongoose.Schema({
         type: Number, // in minutes
         required: true,
     },
-    level: { type: String, enum: ['easy', 'medium', 'hard'], default: 'easy' },
     totalMarks: {
         type: Number,
         required: true,
