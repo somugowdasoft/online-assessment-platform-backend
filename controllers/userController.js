@@ -6,6 +6,7 @@ const createToken = require('../utils/tokenUtils')
 exports.registerUser = async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
+        //Hashing the Password
         const user = new User({ name, email, password, role });
         await user.save();
         res.status(201).json({ user: { name, email, role }, message: "user successfully registed" });
@@ -16,19 +17,25 @@ exports.registerUser = async (req, res) => {
 
 // Login user (Student or Admin)
 exports.loginUser = async (req, res) => {
+
     try {
         const { email, password } = req.body;
+        // Check if email and password are provided
         if (!email || !password) {
-            return next(new ErrorResponse('Please provide an email and password', 400));
+            return res.status(400).json({ success: false, message: 'Please provide an email and password' });
         }
 
-        const user = await User.findOne({ email });
+        // Check if the user exists with the provided email
+        const user = await User.findOne({ email }).select('+password');
         if (!user) {
-            return next(new ErrorResponse('Invalid credentials', 401));
+            return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
 
+        // Compare the provided password with the stored password
         const match = await bcrypt.compare(password, user.password);
-        if (!match) return res.status(400).json({ error: 'Invalid credentials' });
+        if (!match) {
+            return res.status(401).json({ success: false, message: 'Invalid credentials' });
+        }
         const token = await createToken(user);
         res.status(200).json({ token, user: { name: user.name, email: user.email, role: user.role, id: user._id }, message: "user successfully login" });
     } catch (err) {
