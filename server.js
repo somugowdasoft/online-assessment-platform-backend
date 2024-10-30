@@ -4,6 +4,7 @@ const express = require("express");
 const userRoutes = require('./routers/userRoute');
 const examRouter = require("./routers/examRoute")
 const studenRoutes = require('./routers/studentRoutes');
+const questionRoute = require('./routers/quetionRoute');
 
 const cors = require("cors");
 
@@ -24,10 +25,13 @@ app.use(cors());
 //parsing incoming JSON request
 app.use(bodyParser.json());
 
-app.use('/api/auth', userRoutes)
+app.use('/api/auth', userRoutes);
 
 //exams
-app.use('/api/exam', examRouter)
+app.use('/api/exam', examRouter);
+
+//exams
+app.use('/api/questions', questionRoute)
 
 //students
 app.use('/api/students', studenRoutes);
