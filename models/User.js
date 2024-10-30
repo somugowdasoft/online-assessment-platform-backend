@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+// Define the User schema
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -25,11 +26,23 @@ const userSchema = new mongoose.Schema({
     enum: ['student', 'admin'],
     default: 'student'
   },
+  profile: {
+    address: {
+      type: String,
+    },
+    dob: {
+      type: Date,
+    },
+    gender: {
+      type: String,
+      enum: ['male', 'female', 'other'], // Optional: restrict to specific values
+    },
+  }, // Nesting the profile schema
 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
-    next();
+    return next();
   }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);

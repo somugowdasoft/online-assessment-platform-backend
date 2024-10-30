@@ -20,23 +20,19 @@ const questionSchema = new mongoose.Schema({
             message: 'Multiple-choice questions must have at least two options.',
         },
     },
-    
     correctAnswer: {
         type: String,
+        required: true, // Consider making this required to ensure there is always a correct answer
     },
     difficulty: {
         type: String,
         enum: ['easy', 'medium', 'hard'],
         required: true,
     },
-    exam: {
-        type: String,
-        required: true,
-    },
     examId: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'Exam', // Reference to the Exam model
         required: true,
-        ref: 'Exam', // Assuming you have an Exam model
     },
 }, { timestamps: true });
 

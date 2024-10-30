@@ -25,9 +25,10 @@ const examSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }],
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // Assuming you have a User model
+        ref: 'User', // Reference to the User model
         required: true,
     },
 }, { timestamps: true });

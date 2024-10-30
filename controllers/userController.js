@@ -55,12 +55,18 @@ exports.getProfile = async (req, res) => {
 
 // Update student profile
 exports.updateProfile = async (req, res) => {
+    const { id } = req.params;
     try {
-        const user = await User.findById(req.user.userId);
+        const user = await User.findById(id);
         if (!user) {
             return res.status(403).json({ error: 'User not found' });
         }
-        Object.assign(user.profile, req.body);
+
+        const { dob, address, gender } = req.body;
+        user.profile.address = address;
+        user.profile.dob = dob;
+        user.profile.gender = gender;
+
         await user.save();
         res.json(user);
     } catch (err) {
