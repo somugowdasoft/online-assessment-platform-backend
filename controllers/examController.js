@@ -13,11 +13,23 @@ exports.createExam = async (req, res) => {
 
 // Get all exams
 exports.getExams = async (req, res) => {
+    const { userId, role } = req.user; // Extract userId and role from req.user
+    let exams;
+
     try {
-        const exams = await Exam.find({ createdBy: req.user?.userId });
-        res.status(200).json(exams);
+        if (role === "student") {
+            // Students should get all exams
+            exams = await Exam.find();
+        } else if (role === "admin") {
+            // Admins should get only the exams they created
+            exams = await Exam.find({ createdBy: userId });
+        } else {
+            return res.status(403).json({ message: 'Unauthorized access' });
+        }
+
+        res.status(200).json(exams); // Send the exams data as JSON
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching exams', error });
+        res.status(500).json({ message: 'Error fetching exams', error }); // Handle server errors
     }
 };
 

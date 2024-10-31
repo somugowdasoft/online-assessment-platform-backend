@@ -30,7 +30,7 @@ app.use('/api/auth', userRoutes);
 //exams
 app.use('/api/exam', examRouter);
 
-//exams
+//questions
 app.use('/api/questions', questionRoute)
 
 //students
