@@ -46,7 +46,7 @@ exports.getExamById = async (req, res) => {
         }
         // Transform the data structure for better organization
         const formattedExam = {
-            examDetails: {
+            examData: {
                 id: exam._id,
                 name: exam.name,
                 date: exam.date,
