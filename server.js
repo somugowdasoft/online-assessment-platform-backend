@@ -5,6 +5,7 @@ const userRoutes = require('./routers/userRoute');
 const examRouter = require("./routers/examRoute")
 const studenRoutes = require('./routers/studentRoutes');
 const questionRoute = require('./routers/quetionRoute');
+const resultRoute = require('./routers/resultsRoute');
 
 const cors = require("cors");
 
@@ -35,6 +36,9 @@ app.use('/api/questions', questionRoute)
 
 //students
 app.use('/api/students', studenRoutes);
+
+//result
+app.use('/api/result', resultRoute)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
