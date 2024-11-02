@@ -1,6 +1,6 @@
 const express = require('express');
 const authenticate = require('../middlewares/auth');
-const { createExam, getExams, deleteExam, updateExam, getExamById } = require('../controllers/examController');
+const { createExam, getExams, deleteExam, updateExam, getExamById, submitExam, getUserSubmissions } = require('../controllers/examController');
 
 const router = express.Router();
 
@@ -11,5 +11,8 @@ router.get('/exams/:id', authenticate(), getExamById);
 router.put('/exams/:id', authenticate(), updateExam);
 router.delete('/exams/:id', authenticate(), deleteExam);
 
+//exam submit
+router.post('/submit', authenticate(), submitExam);
+router.get('/submit', authenticate(), getUserSubmissions);
 
 module.exports = router;

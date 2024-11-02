@@ -29,6 +29,10 @@ const questionSchema = new mongoose.Schema({
         enum: ['easy', 'medium', 'hard'],
         required: true,
     },
+    exam: {
+        type: String,
+        required: true,
+    },
     examId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Exam', // Reference to the Exam model
