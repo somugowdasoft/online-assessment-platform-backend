@@ -3,9 +3,9 @@ const { getAllStudents, deleteStudent, updateExamPermission, createActivity, get
 const authenticate = require('../middlewares/auth');
 const router = express.Router();
 
-router.get('/', getAllStudents);
-router.delete('/:id', deleteStudent);
-router.put('/permission/:id', updateExamPermission);
+router.get('/', authenticate(), getAllStudents);
+router.delete('/:id', authenticate(), deleteStudent);
+router.put('/permission/:id', authenticate(), updateExamPermission);
 
 router.post('/activity', authenticate(), createActivity);
 router.get('/activity', authenticate(), getAllStudentActivities);

@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "bdb2bf42-4f19-4c7d-b901-705f7feef4e6",
+		"name": "online-assessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38758892"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"guna\",\r\n    \"email\": \"guna@gmail.com\",\r\n    \"role\": \"admin\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://online-assessment-platform-backend-cmgj.onrender.com/api/auth/register",
+					"protocol": "https",
+					"host": [
+						"online-assessment-platform-backend-cmgj",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"guna@gmail.com\", \"password\": \"123456\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://online-assessment-platform-backend-cmgj.onrender.com/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"online-assessment-platform-backend-cmgj",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://online-assessment-platform-backend-cmgj.onrender.com/api/students",
+					"protocol": "https",
+					"host": [
+						"online-assessment-platform-backend-cmgj",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "exams",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzI4OTU0ZWNjMDhiMDYxZjM4MWI4Y2YiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA3MTI5NjEsImV4cCI6MTczMDc5OTM2MX0.9e58gc8VCun3LDCHw40yJqt5vWstLe6LMevxtmhIGu8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://online-assessment-platform-backend-cmgj.onrender.com/api/exam",
+					"protocol": "https",
+					"host": [
+						"online-assessment-platform-backend-cmgj",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"exam"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "questions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://online-assessment-platform-backend-cmgj.onrender.com/api/questions",
+					"protocol": "https",
+					"host": [
+						"online-assessment-platform-backend-cmgj",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "submit exam",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzI4OTU0ZWNjMDhiMDYxZjM4MWI4Y2YiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA3MTI5NjEsImV4cCI6MTczMDc5OTM2MX0.9e58gc8VCun3LDCHw40yJqt5vWstLe6LMevxtmhIGu8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://online-assessment-platform-backend-cmgj.onrender.com/api/exam/submit",
+					"protocol": "https",
+					"host": [
+						"online-assessment-platform-backend-cmgj",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"exam",
+						"submit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "results",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzI4OTU0ZWNjMDhiMDYxZjM4MWI4Y2YiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzA3MTI5NjEsImV4cCI6MTczMDc5OTM2MX0.9e58gc8VCun3LDCHw40yJqt5vWstLe6LMevxtmhIGu8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://online-assessment-platform-backend-cmgj.onrender.com/api/result/6728954ecc08b061f381b8cf",
+					"protocol": "https",
+					"host": [
+						"online-assessment-platform-backend-cmgj",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"result",
+						"6728954ecc08b061f381b8cf"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
