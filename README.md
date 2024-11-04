@@ -1,13 +1,13 @@
-**Backend Setup**
+## Backend Setup
 
 This document outlines the steps to set up the backend for the Online Assessment Platform, a Node.js application that provides a RESTful API to manage online exams, question banks, students, results, and more. The backend uses Node.js, Express.js, MongoDB, and JWT for user authentication.
 
-**Prerequisites**
+## Prerequisites
 
 Node.js (v14+)
 MongoDB (locally or use MongoDB Atlas for cloud hosting)
 
-**Clone the Repository**
+## Clone the Repository
 
 1. Clone the repository to your local machine:
 
@@ -49,72 +49,70 @@ To start the development server, run the following command:
 npm run dev
 ```
 
-**Backend Tech Overview**
+## Backend Tech Overview
 
-***Node.js & Express.js:***
+**Node.js & Express.js:**
 Handles API routes and business logic.
 
-***MongoDB:***
+**MongoDB:**
 Stores user data, exam questions, and results.
 
-***Mongoose:***
+**Mongoose:**
 Provides an ORM for MongoDB.
 
-***JWT (JSON Web Tokens):*** 
+**JWT (JSON Web Tokens):** 
 Used for authenticating and authorizing users.
 
-***Role-based Access Control (RBAC):***
+**Role-based Access Control (RBAC):**
  Differentiates between admin and student routes.
  
-***Postman:***
+**Postman:**
 Useful for testing the API routes and for API documentation.
 
+## API Endpoints
 
+## User Authentication
 
-**API Endpoints**
-
-***User Authentication***
-
-**POST /api/auth/register:** 
+### POST /api/auth/register:
 Register a new user (Admin & Student).
 
-**POST /api/auth/login:** 
+### POST /api/auth/login: 
 Login for both Admin and Student.
 
-**Question Bank Management (Admin Only)**
+## Question Bank Management (Admin Only)
 
-***GET /api/questions:***
+### GET /api/questions:
 Fetch all questions.
 
-***POST /api/questions/add:*** 
+### POST /api/questions/add: 
 Create a new question.
 
-***PUT /api/questions/:id:*** 
+### PUT /api/questions/:id:
 Update a specific question.
 
-***DELETE /api/questions/:id:*** 
+### DELETE /api/questions/:id: 
 Delete a specific question.
 
-***Exam Management (Admin Only)***
+## Exam Management (Admin Only)
 
-***GET /api/exam:**** 
+### GET /api/exam: 
 Get all exams.
 
-***POST /api/exam/exmas:*** 
+### POST /api/exam/exmas:
 Create a new exam.
 
-***PUT /api/exam/exams/:id:*** 
+### PUT /api/exam/exams/:id:
 Update a specific exam.
 
-***Students (Admin Only)***
+## Students (Admin Only)
 
-***GET /api/students:*** 
+### GET /api/students:
 Fetch all students.
 
-***DELETE /api/students/:id:*** 
+### DELETE /api/students/:id: 
 Delete a specific student.
 
-***Results and Analytics***
+## Results and Analytics 
 
-***GET /api/result:***
+### GET /api/result:
 Get results for both admin (for all students) and individual students (based on role).
