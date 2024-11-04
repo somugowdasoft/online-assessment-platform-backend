@@ -1,5 +1,5 @@
 const Student = require('../models/User');
-const StudentActivity = require('./studentActivitySchema');
+const StudentActivity = require('../models/studentActivitySchema');
 
 // Get all students
 exports.getAllStudents = async (req, res) => {
