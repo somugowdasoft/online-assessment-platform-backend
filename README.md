@@ -41,34 +41,57 @@ npm run dev
 ```
 
 **Backend Tech Overview**
-**Node.js & Express.js:** Handles API routes and business logic.
-**MongoDB:** Stores user data, exam questions, and results.
-**Mongoose:** Provides an ORM for MongoDB.
-**JWT (JSON Web Tokens):** Used for authenticating and authorizing users.
-**Role-based Access Control (RBAC):** Differentiates between admin and student routes.
-**Postman:** Useful for testing the API routes and for API documentation.
+
+**Node.js & Express.js:** 
+Handles API routes and business logic.
+**MongoDB:** 
+Stores user data, exam questions, and results.
+**Mongoose:** 
+Provides an ORM for MongoDB.
+**JWT (JSON Web Tokens):** 
+Used for authenticating and authorizing users.
+**Role-based Access Control (RBAC):**
+ Differentiates between admin and student routes.
+**Postman:** 
+Useful for testing the API routes and for API documentation.
 
 
 **API Endpoints**
 
 **User Authentication**
-**POST /api/auth/register:** Register a new user (Admin & Student).
-**POST /api/auth/login:** Login for both Admin and Student.
+**POST /api/auth/register:** 
+Register a new user (Admin & Student).
+**POST /api/auth/login:** 
+Login for both Admin and Student.
 
 **Question Bank Management (Admin Only)**
-**GET /api/questions:** Fetch all questions.
-**POST /api/questions/add:** Create a new question.
-**PUT /api/questions/:id:** Update a specific question.
-**DELETE /api/questions/:id:** Delete a specific question.
+
+**GET /api/questions:** 
+Fetch all questions.
+**POST /api/questions/add:** 
+Create a new question.
+**PUT /api/questions/:id:** 
+Update a specific question.
+**DELETE /api/questions/:id:** 
+Delete a specific question.
 
 **Exam Management (Admin Only)**
-**GET /api/exam:**** Get all exams.
-**POST /api/exam/exmas:** Create a new exam.
-**PUT /api/exam/exams/:id:** Update a specific exam.
+
+**GET /api/exam:**** 
+Get all exams.
+**POST /api/exam/exmas:** 
+Create a new exam.
+**PUT /api/exam/exams/:id:** 
+Update a specific exam.
 
 **Students (Admin Only)**
-**GET /api/students:** Fetch all students.
-**DELETE /api/students/:id:** Delete a specific student.
+
+**GET /api/students:** 
+Fetch all students.
+**DELETE /api/students/:id:** 
+Delete a specific student.
 
 **Results and Analytics**
-**GET /api/result:** Get results for both admin (for all students) and individual students (based on role).
+
+**GET /api/result:** 
+Get results for both admin (for all students) and individual students (based on role).
