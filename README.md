@@ -35,8 +35,10 @@ JWT_EXPIRE=1h
 
 **MONGO_URI:** 
 Your MongoDB connection string.
+
 **JWT_SECRET:** 
 A secret key for JWT token generation.
+
 **JWT_EXPIRE:** 
 The duration for which the JWT is valid (e.g., 1 hour).
 
@@ -49,28 +51,29 @@ npm run dev
 
 **Backend Tech Overview**
 
-**Node.js & Express.js:** 
+***Node.js & Express.js:***
 Handles API routes and business logic.
 
-**MongoDB:** 
+***MongoDB:***
 Stores user data, exam questions, and results.
 
-**Mongoose:** 
+***Mongoose:***
 Provides an ORM for MongoDB.
 
-**JWT (JSON Web Tokens):** 
+***JWT (JSON Web Tokens):*** 
 Used for authenticating and authorizing users.
 
-**Role-based Access Control (RBAC):**
+***Role-based Access Control (RBAC):***
  Differentiates between admin and student routes.
  
-**Postman:** 
+***Postman:***
 Useful for testing the API routes and for API documentation.
+
 
 
 **API Endpoints**
 
-**User Authentication**
+***User Authentication***
 
 **POST /api/auth/register:** 
 Register a new user (Admin & Student).
@@ -80,38 +83,38 @@ Login for both Admin and Student.
 
 **Question Bank Management (Admin Only)**
 
-**GET /api/questions:** 
+***GET /api/questions:***
 Fetch all questions.
 
-**POST /api/questions/add:** 
+***POST /api/questions/add:*** 
 Create a new question.
 
-**PUT /api/questions/:id:** 
+***PUT /api/questions/:id:*** 
 Update a specific question.
 
-**DELETE /api/questions/:id:** 
+***DELETE /api/questions/:id:*** 
 Delete a specific question.
 
-**Exam Management (Admin Only)**
+***Exam Management (Admin Only)***
 
-**GET /api/exam:**** 
+***GET /api/exam:**** 
 Get all exams.
 
-**POST /api/exam/exmas:** 
+***POST /api/exam/exmas:*** 
 Create a new exam.
 
-**PUT /api/exam/exams/:id:** 
+***PUT /api/exam/exams/:id:*** 
 Update a specific exam.
 
-**Students (Admin Only)**
+***Students (Admin Only)***
 
-**GET /api/students:** 
+***GET /api/students:*** 
 Fetch all students.
 
-**DELETE /api/students/:id:** 
+***DELETE /api/students/:id:*** 
 Delete a specific student.
 
-**Results and Analytics**
+***Results and Analytics***
 
-**GET /api/result:**
+***GET /api/result:***
 Get results for both admin (for all students) and individual students (based on role).
