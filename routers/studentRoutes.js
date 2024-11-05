@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllStudents, deleteStudent, updateExamPermission, createActivity, getAllStudentActivities } = require('../controllers/studentController');
+const { getAllStudents, deleteStudent, updateExamPermission, createActivity, getAllStudentActivities, createProctor } = require('../controllers/studentController');
 const authenticate = require('../middlewares/auth');
 const router = express.Router();
 
@@ -7,7 +7,12 @@ router.get('/', authenticate(), getAllStudents);
 router.delete('/:id', authenticate(), deleteStudent);
 router.put('/permission/:id', authenticate(), updateExamPermission);
 
+//activity
 router.post('/activity', authenticate(), createActivity);
 router.get('/activity', authenticate(), getAllStudentActivities);
+
+// proctor
+router.post('/proctor', authenticate(), createProctor);
+// router.get('/proctor', authenticate(), getProctor);
 
 module.exports = router;

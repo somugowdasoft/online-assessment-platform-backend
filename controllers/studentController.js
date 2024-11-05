@@ -1,5 +1,6 @@
+const Proctor = require('../models/Proctor');
 const Student = require('../models/User');
-const StudentActivity = require('../models/studentActivitySchema');
+const StudentActivity = require('../models/studentActivity');
 
 // Get all students
 exports.getAllStudents = async (req, res) => {
@@ -88,5 +89,24 @@ exports.getAllStudentActivities = async (req, res) => {
         res.status(200).json({ activities });
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+};
+
+// Create a new proctor record
+exports.createProctor = async (req, res) => {    
+    try {
+        const { examId, ...proctorData } = req.body; // Destructure examId and rest of the data from the request body
+
+        // Use findOneAndUpdate to create or update the proctor record
+        const updatedProctor = await Proctor.findOneAndUpdate(
+            { examId: examId }, // Query condition
+            { ...proctorData, timestamp: new Date() }, // Update data
+            { new: true, upsert: true } // Options: new returns the updated document, upsert creates if not found
+        );
+
+        res.status(200).json({ message: 'Proctor data created/updated successfully', proctor: updatedProctor });
+    } catch (error) {
+        console.error('Error creating/updating proctor data:', error);
+        res.status(500).json({ message: 'Error creating/updating proctor data', error: error.message });
     }
 };
