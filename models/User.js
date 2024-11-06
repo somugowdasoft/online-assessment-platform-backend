@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
     enum: ['student', 'admin'],
     default: 'student'
   },
+  examPermission: {
+    type: Boolean, // true or false
+    default: true,
+  },
   profile: {
     address: {
       type: String,

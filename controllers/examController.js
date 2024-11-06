@@ -86,7 +86,7 @@ exports.getExamById = async (req, res) => {
 //update exam
 exports.updateExam = async (req, res) => {
     try {
-        const exam = await Exam.findOne({ _id: req.params.id, createdBy: req.user?.userId });
+        const exam = await Exam.findOne({ _id: req.params.id});
         if (!exam) {
             return res.status(404).json({ message: 'Exam not found' });
         }
@@ -102,7 +102,7 @@ exports.updateExam = async (req, res) => {
 //delete
 exports.deleteExam = async (req, res) => {
     try {
-        const exam = await Exam.findOne({ _id: req.params.id, createdBy: req.user?.userId });
+        const exam = await Exam.findOne({ _id: req.params.id});
         if (!exam) {
             return res.status(404).json({ message: 'Exam not found' });
         }

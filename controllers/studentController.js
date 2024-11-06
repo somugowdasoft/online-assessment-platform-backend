@@ -31,8 +31,16 @@ exports.deleteStudent = async (req, res) => {
 exports.updateExamPermission = async (req, res) => {
     try {
         const student = await Student.findById(req.params.id);
-        if (!student) return res.status(404).json({ message: 'Student not found' });
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
 
+        // Check if the role is 'student'
+        if (student.role !== 'student') {
+            return res.status(403).json({ message: 'Only students can have exam permissions updated' });
+        }
+
+        // Update examPermission
         student.examPermission = req.body.examPermission;
         await student.save();
 
@@ -60,7 +68,7 @@ exports.createActivity = async (req, res) => {
             name: student.name,
             email: student.email,
             acivityType: acivityType,
-            examPermission: req.body.examPermission || false
+            examPermission: req.body.examPermission || true
         };
 
         // Save activity to the database
