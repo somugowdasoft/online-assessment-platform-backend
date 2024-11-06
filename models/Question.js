@@ -38,6 +38,11 @@ const questionSchema = new mongoose.Schema({
         ref: 'Exam', // Reference to the Exam model
         required: true,
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', // Assuming you have a User model
+        required: true
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Question', questionSchema);

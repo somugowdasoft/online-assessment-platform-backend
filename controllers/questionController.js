@@ -3,6 +3,7 @@ const Question = require('../models/Question');
 // Add a new question
 const addQuestion = async (req, res) => {
     const { question, questionType, options, correctAnswer, difficulty, exam, examId } = req.body;
+    const { userId } = req.user;
     try {
         const newQuestion = new Question({
             question: question,
@@ -12,10 +13,11 @@ const addQuestion = async (req, res) => {
             difficulty: difficulty,
             exam: exam,
             examId: examId,
+            userId: userId
         });
 
         const savedQuestion = await newQuestion.save();
-        res.status(201).json({savedQuestion, message: "Question created successfully!"});
+        res.status(201).json({ savedQuestion, message: "Question created successfully!" });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -57,7 +59,7 @@ const updateQuestion = async (req, res) => {
         if (!updatedQuestion) {
             return res.status(404).json({ message: 'Question not found' });
         }
-        res.status(200).json({updatedQuestion, message: 'Question updated successfully' });
+        res.status(200).json({ updatedQuestion, message: 'Question updated successfully' });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

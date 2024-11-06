@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllStudents, deleteStudent, updateExamPermission, createActivity, getAllStudentActivities, createProctor } = require('../controllers/studentController');
+const { getAllStudents, deleteStudent, updateExamPermission, createActivity, getAllStudentActivities, createProctor, getProctorByUserId } = require('../controllers/studentController');
 const authenticate = require('../middlewares/auth');
 const router = express.Router();
 
@@ -13,6 +13,6 @@ router.get('/activity', authenticate(), getAllStudentActivities);
 
 // proctor
 router.post('/proctor', authenticate(), createProctor);
-// router.get('/proctor', authenticate(), getProctor);
+router.get('/proctor/:userId', authenticate(), getProctorByUserId);
 
 module.exports = router;

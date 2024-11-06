@@ -26,7 +26,7 @@ exports.getExams = async (req, res) => {
                 .exec();
         } else if (role === "admin") {
             // Admins should get only the exams they created
-            exams = await Exam.find({ createdBy: userId });
+            exams = await Exam.find();
         } else {
             return res.status(403).json({ message: 'Unauthorized access' });
         }

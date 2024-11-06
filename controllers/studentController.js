@@ -93,20 +93,68 @@ exports.getAllStudentActivities = async (req, res) => {
 };
 
 // Create a new proctor record
-exports.createProctor = async (req, res) => {    
+exports.createProctor = async (req, res) => {
     try {
-        const { examId, ...proctorData } = req.body; // Destructure examId and rest of the data from the request body
+        const { examId, screenshot, userId, ...proctorData } = req.body; // Destructure examId, screenshot, and rest of the data from the request body
 
-        // Use findOneAndUpdate to create or update the proctor record
-        const updatedProctor = await Proctor.findOneAndUpdate(
-            { examId: examId }, // Query condition
-            { ...proctorData, timestamp: new Date() }, // Update data
-            { new: true, upsert: true } // Options: new returns the updated document, upsert creates if not found
-        );
+        // Find the existing proctor record by examId
+        const existingProctor = await Proctor.findOne({ examId: examId, userId: userId });
 
-        res.status(200).json({ message: 'Proctor data created/updated successfully', proctor: updatedProctor });
+        if (existingProctor) {
+            // Compare the existing screenshot with the new screenshot
+            if (existingProctor.screenshot !== screenshot) {
+                // If the screenshots are different, push the old screenshot to an array and update
+                if (!existingProctor.screenshots) {
+                    existingProctor.screenshots = []; // Initialize if not present
+                }
+                existingProctor.screenshots.push(existingProctor.screenshot); // Save the old screenshot
+
+                // Update the existing proctor with new data and screenshot
+                existingProctor.screenshot = screenshot;
+            }
+
+            // Update other fields
+            Object.assign(existingProctor, proctorData, { timestamp: new Date() });
+
+            // Save the updated proctor
+            const updatedProctor = await existingProctor.save();
+
+            res.status(200).json({ message: 'Proctor data updated successfully', proctor: updatedProctor });
+        } else {
+            // If no existing proctor, create a new one
+            const newProctor = new Proctor({
+                examId,
+                screenshot,
+                screenshots: [],
+                ...proctorData,
+                timestamp: new Date()
+            });
+
+            const savedProctor = await newProctor.save();
+            res.status(201).json({ message: 'Proctor data created successfully', proctor: savedProctor });
+        }
     } catch (error) {
         console.error('Error creating/updating proctor data:', error);
         res.status(500).json({ message: 'Error creating/updating proctor data', error: error.message });
+    }
+};
+
+//get proctor by user id
+exports.getProctorByUserId = async (req, res) => {
+    try {
+        const { userId } = req.params; // Extract userId from the request parameters
+
+        // Find proctor data by userId
+        const proctorData = await Proctor.findOne({ userId }); // Assuming 'userId' is a field in the Proctor model
+
+        if (!proctorData) {
+            return res.status(404).json({ message: 'No proctor data found for this user.' });
+        }
+
+        // Return the found proctor data
+        res.status(200).json({ message: 'Proctor data retrieved successfully', proctor: proctorData });
+    } catch (error) {
+        console.error('Error fetching proctor data:', error);
+        res.status(500).json({ message: 'Error fetching proctor data', error: error.message });
     }
 };
