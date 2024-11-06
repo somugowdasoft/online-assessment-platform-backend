@@ -102,15 +102,15 @@ exports.getAllStudentActivities = async (req, res) => {
 
 // Create a new proctor record
 exports.createProctor = async (req, res) => {
+   
     try {
         const { examId, screenshot, userId, ...proctorData } = req.body; // Destructure examId, screenshot, and rest of the data from the request body
-
         // Find the existing proctor record by examId
         const existingProctor = await Proctor.findOne({ examId: examId, userId: userId });
 
         if (existingProctor) {
             // Compare the existing screenshot with the new screenshot
-            if (existingProctor.screenshot !== screenshot) {
+            if (screenshot && existingProctor.screenshot !== screenshot) {
                 // If the screenshots are different, push the old screenshot to an array and update
                 if (!existingProctor.screenshots) {
                     existingProctor.screenshots = []; // Initialize if not present
@@ -132,6 +132,7 @@ exports.createProctor = async (req, res) => {
             // If no existing proctor, create a new one
             const newProctor = new Proctor({
                 examId,
+                userId,
                 screenshot,
                 screenshots: [],
                 ...proctorData,

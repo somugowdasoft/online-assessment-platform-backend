@@ -11,7 +11,6 @@ const ProctorSchema = new mongoose.Schema({
     },
     screenshot: {
         type: String,
-        required: true
     },
     screenshots: {
         type: [String], // An array to store previous screenshots (URLs or base64 strings)
