@@ -1,6 +1,7 @@
 const Exam = require('../models/Exam');
 const Question = require('../models/Question');
 const Submission = require('../models/Submission');
+const User = require('../models/User');
 
 exports.createExam = async (req, res) => {
     try {
@@ -17,12 +18,25 @@ exports.getExams = async (req, res) => {
     const { userId, role } = req.user; // Extract userId and role from req.user
     let exams;
     let submittedData;
+    let user;
     try {
         if (role === "student") {
             // Students should get all exams
             exams = await Exam.find();
+            //get exam permission
+            user = await User.find({ _id: userId })
+                .select('_id examPermission role')
+                .exec();
+            //get exam submite
             submittedData = await Submission.find({ userId })
-                .populate('examId', 'name') // Optionally populate the exam details (e.g., name)
+                .populate({
+                    path: 'examId',
+                    select: 'name' // Only select the 'name' field from the 'examId'
+                })
+                .populate({
+                    path: 'userId',
+                    select: 'examPermission' // Only select the 'examPermission' field from the 'userId'
+                })
                 .exec();
         } else if (role === "admin") {
             // Admins should get only the exams they created
@@ -31,7 +45,7 @@ exports.getExams = async (req, res) => {
             return res.status(403).json({ message: 'Unauthorized access' });
         }
 
-        res.status(200).json({ success: true, exams, submittedData }); // Send the exams data as JSON
+        res.status(200).json({ success: true, exams, submittedData, user }); // Send the exams data as JSON
     } catch (error) {
         res.status(500).json({ message: 'Error fetching exams', error }); // Handle server errors
     }
@@ -86,7 +100,7 @@ exports.getExamById = async (req, res) => {
 //update exam
 exports.updateExam = async (req, res) => {
     try {
-        const exam = await Exam.findOne({ _id: req.params.id});
+        const exam = await Exam.findOne({ _id: req.params.id });
         if (!exam) {
             return res.status(404).json({ message: 'Exam not found' });
         }
@@ -102,7 +116,7 @@ exports.updateExam = async (req, res) => {
 //delete
 exports.deleteExam = async (req, res) => {
     try {
-        const exam = await Exam.findOne({ _id: req.params.id});
+        const exam = await Exam.findOne({ _id: req.params.id });
         if (!exam) {
             return res.status(404).json({ message: 'Exam not found' });
         }

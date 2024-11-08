@@ -102,7 +102,6 @@ exports.getAllStudentActivities = async (req, res) => {
 
 // Create a new proctor record
 exports.createProctor = async (req, res) => {
-   
     try {
         const { examId, screenshot, userId, ...proctorData } = req.body; // Destructure examId, screenshot, and rest of the data from the request body
         // Find the existing proctor record by examId
@@ -151,10 +150,10 @@ exports.createProctor = async (req, res) => {
 //get proctor by user id
 exports.getProctorByUserId = async (req, res) => {
     try {
-        const { userId } = req.params; // Extract userId from the request parameters
+        const { id } = req.params; // Extract userId from the request parameters
 
         // Find proctor data by userId
-        const proctorData = await Proctor.findOne({ userId }); // Assuming 'userId' is a field in the Proctor model
+        const proctorData = await Proctor.findOne({ userId: id }); // Assuming 'userId' is a field in the Proctor model
 
         if (!proctorData) {
             return res.status(404).json({ message: 'No proctor data found for this user.' });

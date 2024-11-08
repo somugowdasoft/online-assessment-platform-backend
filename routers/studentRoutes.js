@@ -13,6 +13,6 @@ router.get('/activity', authenticate(), getAllStudentActivities);
 
 // proctor
 router.post('/proctor', authenticate(), createProctor);
-router.get('/proctor/:userId', authenticate(), getProctorByUserId);
+router.get('/proctor/:id', authenticate(), getProctorByUserId);
 
 module.exports = router;

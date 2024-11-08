@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
   },
   examPermission: {
     type: Boolean, // true or false
-    default: true,
+    default: false,
   },
   profile: {
     address: {
