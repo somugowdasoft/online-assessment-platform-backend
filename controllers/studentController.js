@@ -50,6 +50,21 @@ exports.updateExamPermission = async (req, res) => {
     }
 };
 
+//handle role change
+exports.updateRole = async (req, res) => {
+    const { id } = req.params;
+    const { role } = req.body;
+    try {
+        const updatedUser = await Student.findByIdAndUpdate(id, { role }, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json({ message: 'Role updated successfully', updatedUser });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+}
+
 
 // Create or Update Student Activity
 exports.createActivity = async (req, res) => {
